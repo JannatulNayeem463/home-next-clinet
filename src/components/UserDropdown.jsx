@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
+
 
 const UserDropdown = ({ user }) => {
   const [open, setOpen] = useState(false);
-  const { logout } = useAuth();
+  const { logout } = useContext(AuthContext);
 
   return (
     <div className="user-menu">

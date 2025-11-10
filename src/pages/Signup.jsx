@@ -1,54 +1,139 @@
-
-import React, { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { AuthContext } from "../context/AuthContext";
 
 const Signup = () => {
-  const { signup } = useAuth();
+  const { signup } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [displayName, setDisplayName] = useState("");
-  const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    photoURL: "",
+    password: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSignup = async (e) => {
     e.preventDefault();
+    const { name, email, password, photoURL } = formData;
+
+    if (!name || !email || !password) {
+      toast.error("Please fill in all required fields!");
+      return;
+    }
+
+    setLoading(true);
+
     try {
-      await signup(email, password, displayName, null);
+      await signup(email, password, name, photoURL);
+      toast.success("Account created successfully 🎉");
       navigate("/");
     } catch (err) {
-      setError(err.message);
+      console.error("🔥 Signup Error:", err);
+
+      switch (err.code) {
+        case "auth/email-already-in-use":
+          toast.error("Email already in use!");
+          break;
+        case "auth/invalid-email":
+          toast.error("Invalid email address!");
+          break;
+        case "auth/weak-password":
+          toast.error("Password should be at least 6 characters!");
+          break;
+        default:
+          toast.error("Signup failed. Please try again.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="signup-container">
-      <h2>Signup</h2>
-      {error && <p className="error">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Display Name"
-          value={displayName}
-          onChange={(e) => setDisplayName(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Signup</button>
-      </form>
+    <div className="flex justify-center min-h-screen items-center">
+      <div className="card bg-base-100 w-full max-w-sm shadow-2xl py-5">
+        <h2 className="font-semibold text-2xl text-center">Create an Account</h2>
+
+        <form onSubmit={handleSignup} className="card-body">
+          <fieldset className="fieldset">
+            <label className="label">Full Name</label>
+            <input
+              type="text"
+              name="name"
+              className="input"
+              placeholder="Your full name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+
+            <label className="label">Photo URL (optional)</label>
+            <input
+              type="text"
+              name="photoURL"
+              className="input"
+              placeholder="Profile photo URL"
+              value={formData.photoURL}
+              onChange={handleChange}
+            />
+
+            <label className="label">Email</label>
+            <input
+              type="email"
+              name="email"
+              className="input"
+              placeholder="Your email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+
+            <label className="label">Password</label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                className="input w-full pr-12"
+                placeholder="Enter password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+              <span
+                className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? "👁️" : "🙈"}
+              </span>
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-neutral mt-4"
+              disabled={loading}
+            >
+              {loading ? "Creating..." : "Sign Up"}
+            </button>
+
+            <p className="font-semibold text-center pt-5">
+              Already have an account?{" "}
+              <Link className="text-secondary" to="/login">
+                Login
+              </Link>
+            </p>
+          </fieldset>
+        </form>
+      </div>
     </div>
   );
 };

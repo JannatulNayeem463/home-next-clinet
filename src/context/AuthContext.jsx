@@ -1,23 +1,20 @@
-
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  signOut, 
+import {
+  createUserWithEmailAndPassword,
+  signOut,
   onAuthStateChanged,
-  updateProfile
+  updateProfile,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../firebase.config";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
-export const useAuth = () => useContext(AuthContext);
-
- const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
+  // 🔹 Observe auth state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -26,29 +23,54 @@ export const useAuth = () => useContext(AuthContext);
     return unsubscribe;
   }, []);
 
-  // signup
+  // 🔹 Sign up new user
   const signup = async (email, password, displayName, photoURL) => {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    await updateProfile(res.user, { displayName, photoURL });
-    setUser({ ...res.user });
+    try {
+      setLoading(true);
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(res.user, { displayName, photoURL });
+      setUser({ ...res.user });
+    } catch (error) {
+      console.error("Signup Error:", error.code, error.message);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // login
+  // 🔹 Login user
   const login = async (email, password) => {
-    const res = await signInWithEmailAndPassword(auth, email, password);
-    setUser(res.user);
+    try {
+      setLoading(true);
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      setUser(res.user);
+      return res.user;
+    } catch (error) {
+      console.error("Login Error:", error.code, error.message);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // logout
+  // 🔹 Logout user
   const logout = async () => {
-    await signOut(auth);
-    setUser(null);
+    try {
+      await signOut(auth);
+      setUser(null);
+    } catch (error) {
+      console.error("Logout Error:", error.code, error.message);
+    }
   };
+
+  const value = { user, loading, signup, login, logout };
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout, loading }}>
+    <AuthContext.Provider value={value}>
       {!loading && children}
     </AuthContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(AuthContext);
 export default AuthProvider;

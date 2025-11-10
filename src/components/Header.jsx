@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+
 import UserDropdown from "./UserDropdown";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 
 const Header = () => {
-  const { user } = useAuth();
+  const { user } = useContext(AuthContext);
 
   return (
     <div className="navbar bg-base-100 shadow-sm">
