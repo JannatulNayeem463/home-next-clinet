@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AuthContext } from "../context/AuthContext";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const Signup = () => {
   const { signup } = useContext(AuthContext);
@@ -40,20 +41,6 @@ const Signup = () => {
       navigate("/");
     } catch (err) {
       console.error("🔥 Signup Error:", err);
-
-      switch (err.code) {
-        case "auth/email-already-in-use":
-          toast.error("Email already in use!");
-          break;
-        case "auth/invalid-email":
-          toast.error("Invalid email address!");
-          break;
-        case "auth/weak-password":
-          toast.error("Password should be at least 6 characters!");
-          break;
-        default:
-          toast.error("Signup failed. Please try again.");
-      }
     } finally {
       setLoading(false);
     }
@@ -113,7 +100,7 @@ const Signup = () => {
                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? "👁️" : "🙈"}
+                {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
               </span>
             </div>
 

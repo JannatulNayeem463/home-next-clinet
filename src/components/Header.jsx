@@ -2,14 +2,16 @@ import { NavLink } from "react-router-dom";
 
 import UserDropdown from "./UserDropdown";
 import { AuthContext } from "../context/AuthContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
+  const [darkMode, setDarkMode] = useState(false);
 
+ 
   return (
     <div className="navbar bg-base-100 shadow-sm">
-      {/* Navbar start: Logo */}
+      {/* Navbar start*/}
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -60,11 +62,11 @@ const Header = () => {
           </ul>
         </div>
         <NavLink to="/" className="btn btn-ghost text-xl">
-          HomeNest
+        Home<span className="text-blue-400  font-extrabold">Nest</span>
         </NavLink>
       </div>
 
-      {/* Navbar center: menu for larger screens */}
+      {/* Navbar center*/}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
@@ -85,8 +87,9 @@ const Header = () => {
         </ul>
       </div>
 
-      {/* Navbar end: Login/Signup or UserDropdown */}
+      {/* Navbar end */}
       <div className="navbar-end">
+      <input type="checkbox" value="synthwave" className="toggle theme-controller" />
         {!user ? (
           <>
             <NavLink className="btn mr-2" to="/login">
@@ -100,6 +103,8 @@ const Header = () => {
           <UserDropdown user={user} />
         )}
       </div>
+  
+
     </div>
   );
 };
