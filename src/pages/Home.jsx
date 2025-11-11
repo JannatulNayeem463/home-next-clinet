@@ -22,7 +22,7 @@ const Home = () => {
       .catch((err) => console.error(err));
   }, []);
 
-  // Handle View Details (login required)
+  
   const handleViewDetails = (id) => {
     if (!user) {
       navigate("/login");
@@ -33,7 +33,7 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      {/* SLIDER / BANNER  */}
+      {/* Slider / Banner  */}
       <section className="banner-slider">
         <Swiper
           modules={[Navigation, Autoplay]}
@@ -74,7 +74,7 @@ const Home = () => {
         </Swiper>
       </section>
 
-      {/* FEATURED PROPERTIES */}
+      {/*  Featured Property */}
       <section className="featured-properties py-10">
         <div className="container mx-auto px-5">
           <h2 className="text-3xl font-bold text-center mb-8 text-blue-600">

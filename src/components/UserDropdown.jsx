@@ -38,7 +38,7 @@ const UserDropdown = ({ user }) => {
             }}
             style={{
               marginTop: "10px",
-               background: "black",
+               background: "gray",
               color: "white",
               border: "none",
               borderRadius: "5px",

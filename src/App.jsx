@@ -29,9 +29,9 @@ function App() {
           <Route path="/add-property" element={<ProtectedRoute><AddProperty /></ProtectedRoute>} />
           <Route path="/my-properties" element={<ProtectedRoute><MyProperties /></ProtectedRoute>} />
           <Route path="/my-ratings" element={<ProtectedRoute><MyRatings /></ProtectedRoute>} />
-       {/* bbbb */}
+      
          <Route path="/details/:id" element={<ProtectedRoute><DetailsPropertie /></ProtectedRoute>} />  
-          {/* bbbb */}
+          
           <Route
             path="/update-property/:id"
             element={

@@ -35,7 +35,7 @@ const Login = () => {
     } catch (err) {
       console.error(" Firebase Login Error:", err);
 
-      // 🔹 Handle specific Firebase error codes
+
       switch (err.code) {
         case "auth/invalid-email":
           toast.error("Invalid email address!");

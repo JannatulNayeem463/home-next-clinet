@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 🔹 Observe auth state changes
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
-  // 🔹 Sign up new user
+  //Sign up 
   const signup = async (email, password, displayName, photoURL) => {
     try {
       setLoading(true);
@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // 🔹 Login user
+  // Login 
   const login = async (email, password) => {
     try {
       setLoading(true);
@@ -53,7 +53,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // 🔹 Logout user
+  // Logout 
   const logout = async () => {
     try {
       await signOut(auth);

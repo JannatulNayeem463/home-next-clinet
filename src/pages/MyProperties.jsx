@@ -10,7 +10,7 @@ const MyProperties = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch only logged-in user's properties
+  
   useEffect(() => {
     const fetchMyProperties = async () => {
       try {
@@ -31,7 +31,7 @@ const MyProperties = () => {
     }
   }, [user]);
 
-  // ✅ Delete property with confirmation + instant UI update
+  
   const handleDelete = async (id) => {
     const confirm = await Swal.fire({
       title: "Are you sure?",
@@ -48,7 +48,7 @@ const MyProperties = () => {
         const res = await axios.delete(`http://localhost:3000/properties/${id}`);
 
         if (res.data.deletedCount > 0) {
-          // ✅ Instantly remove from UI
+         
           setProperties((prev) => prev.filter((p) => p._id !== id));
 
           Swal.fire({
