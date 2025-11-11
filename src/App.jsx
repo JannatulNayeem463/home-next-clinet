@@ -13,11 +13,15 @@ import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
 import DetailsPropertie from "./pages/DetailsPropertie";
 import UpdateProperty from "./pages/UpdateProperty";
+import { useEffect, useState } from "react";
 
 function App() {
+
+  
   return (
-    <>
-      <Header />
+    <div >
+
+      <Header/>
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -42,7 +46,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

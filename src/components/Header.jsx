@@ -1,16 +1,26 @@
 import { NavLink } from "react-router-dom";
-
+import "./header.css"
 import UserDropdown from "./UserDropdown";
 import { AuthContext } from "../context/AuthContext";
 import { useContext, useEffect, useState } from "react";
+import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
-  const [darkMode, setDarkMode] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  useEffect(() => {
+    document.body.className = theme === "dark" ? "dark-theme" : "light-theme";
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
 
  
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+
+    <div className="navbar  shadow-sm">
       {/* Navbar start*/}
       <div className="navbar-start">
         <div className="dropdown">
@@ -89,7 +99,6 @@ const Header = () => {
 
       {/* Navbar end */}
       <div className="navbar-end">
-      <input type="checkbox" value="synthwave" className="toggle theme-controller" />
         {!user ? (
           <>
             <NavLink className="btn mr-2" to="/login">
@@ -103,7 +112,15 @@ const Header = () => {
           <UserDropdown user={user} />
         )}
       </div>
-  
+   
+      <div className="flex justify-end p-4">
+          <button
+            onClick={toggleTheme}
+            className="px-3 py-3 rounded-full bg-gray-800 text-white dark:bg-gray-300 dark:text-black transition-colors"
+          >
+            {theme === "light" ? <MdDarkMode /> : <MdOutlineLightMode />}
+          </button>
+        </div>
 
     </div>
   );

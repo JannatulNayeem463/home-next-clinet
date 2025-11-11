@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -15,15 +14,18 @@ const DetailsPropertie = () => {
   const [review, setReview] = useState("");
   const [reviews, setReviews] = useState([]);
 
-  // Fetch property data
+  // ✅ Fetch property + reviews
   useEffect(() => {
     const fetchProperty = async () => {
       try {
+        // Get property details
         const res = await axios.get(`http://localhost:3000/properties/${id}`);
         setProperty(res.data);
 
-        // Optional: Fetch 
-        const reviewsRes = await axios.get(`http://localhost:3000/properties?propertyId=${id}`);
+        // Get reviews
+        const reviewsRes = await axios.get(
+          `http://localhost:3000/reviews?propertyId=${id}`
+        );
         setReviews(reviewsRes.data);
       } catch (error) {
         console.error("Error fetching property details:", error);
@@ -34,7 +36,7 @@ const DetailsPropertie = () => {
     fetchProperty();
   }, [id]);
 
-  // Handle review submit
+ 
   const handleSubmitReview = async (e) => {
     e.preventDefault();
     if (rating === 0 || review.trim() === "") {
@@ -52,8 +54,9 @@ const DetailsPropertie = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:3000/properties", newReview);
-      setReviews([res.data, ...reviews]);
+      const res = await axios.post("http://localhost:3000/reviews", newReview);
+      
+      setReviews([newReview, ...reviews]);
       setRating(0);
       setReview("");
       Swal.fire("Success", "Your review has been submitted!", "success");
@@ -77,15 +80,17 @@ const DetailsPropertie = () => {
         {/* Property Image */}
         <img
           src={property.image}
-          alt={property.propertyName}
+          alt={property.name}
           className="w-full h-96 object-cover rounded-lg"
         />
 
-        {/* Property Info */}
+        
         <div>
-          <h2 className="text-3xl font-bold mb-2">{property.propertyName}</h2>
+          <h2 className="text-3xl font-bold mb-2">{property.name}</h2>
           <p className="text-gray-600 mb-2">{property.category}</p>
-          <p className="text-blue-600 font-semibold text-xl mb-2">${property.price}</p>
+          <p className="text-blue-600 font-semibold text-xl mb-2">
+            ${property.price}
+          </p>
           <p className="text-gray-600 mb-2">{property.location}</p>
           <p className="text-gray-700 mb-2">{property.description}</p>
           <p className="text-xs text-gray-400 mb-1">
@@ -101,14 +106,16 @@ const DetailsPropertie = () => {
       <div className="mt-12">
         <h3 className="text-2xl font-semibold mb-4">Ratings & Reviews</h3>
 
-        {/* Submit Review Form */}
+        {/* Submit Review  */}
         {user ? (
           <form
             onSubmit={handleSubmitReview}
             className="mb-8 border p-4 rounded-lg shadow-sm"
           >
             <div className="mb-2">
-              <label className="block text-sm font-medium mb-1">Rating (1 to 5)</label>
+              <label className="block text-sm font-medium mb-1">
+                Rating (1 to 5)
+              </label>
               <input
                 type="number"
                 min="1"

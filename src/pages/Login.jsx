@@ -33,7 +33,7 @@ const Login = () => {
       toast.success("Login successful!");
       navigate(from, { replace: true });
     } catch (err) {
-      console.error("🔥 Firebase Login Error:", err);
+      console.error(" Firebase Login Error:", err);
 
       // 🔹 Handle specific Firebase error codes
       switch (err.code) {
@@ -111,10 +111,10 @@ const Login = () => {
               {loading ? "Logging in..." : "Login"}
             </button>
 
-            <p className="font-semibold text-center pt-5">
+            <p className="font-semibold text-center text-black pt-5">
               Don’t have an account?{" "}
               <Link className="text-secondary" to="/signup">
-                Register
+                Signup
               </Link>
             </p>
           </fieldset>

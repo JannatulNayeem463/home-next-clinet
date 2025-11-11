@@ -22,29 +22,15 @@ const UserDropdown = ({ user }) => {
           cursor: "pointer",
         }}
       />
-
-      {open && (
         <div
           className="dropdown"
           style={{
-            position: "absolute",
-            top: "50px",
-            right: "0",
-            background: "#fff",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-            borderRadius: "8px",
-            padding: "10px",
-            minWidth: "180px",
-            textAlign: "left",
-            zIndex: 999,
+           
+            padding: "6px",
+            
+           
           }}
-        >
-          <p style={{ margin: "5px 0", fontWeight: "bold" }}>
-            {user.displayName || "Unnamed User"}
-          </p>
-          <p style={{ margin: "5px 0", fontSize: "0.9rem", color: "#555" }}>
-            {user.email}
-          </p>
+          >
           <button
             onClick={() => {
               logout();
@@ -52,19 +38,19 @@ const UserDropdown = ({ user }) => {
             }}
             style={{
               marginTop: "10px",
-              background: "#ff4d4d",
+               background: "black",
               color: "white",
               border: "none",
               borderRadius: "5px",
-              padding: "8px 12px",
+              padding: "6px",
               cursor: "pointer",
-              width: "100%",
+             
             }}
           >
-            Log out
+            LogOut
           </button>
         </div>
-      )}
+      
     </div>
   );
 };

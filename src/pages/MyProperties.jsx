@@ -91,10 +91,10 @@ const MyProperties = () => {
             >
               <img
                 src={property.image}
-                alt={property.propertyName}
+                alt={property.name}
                 className="w-full h-48 object-cover rounded"
               />
-              <h3 className="text-xl font-bold mt-3">{property.propertyName}</h3>
+              <h3 className="text-xl font-bold mt-3">{property.name}</h3>
               <p className="text-gray-600">{property.category}</p>
               <p className="font-semibold text-blue-600">${property.price}</p>
               <p className="text-sm text-gray-500">{property.location}</p>
@@ -110,7 +110,7 @@ const MyProperties = () => {
                   onClick={() => navigate(`/details/${property._id}`)}
                   className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
                 >
-                  View
+                  View Details
                 </button>
 
                 <button
@@ -122,7 +122,7 @@ const MyProperties = () => {
 
                 <button
                   onClick={() => handleDelete(property._id)}
-                  className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm"
+                  className="bg-red-300 hover:bg-red-400 text-white px-3 py-1 rounded text-sm"
                 >
                   Delete
                 </button>

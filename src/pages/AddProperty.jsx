@@ -7,7 +7,7 @@ const AddProperty = () => {
   const { user } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
-    propertyName: "",
+    name: "",
     description: "",
     category: "Rent",
     price: "",
@@ -35,7 +35,7 @@ const AddProperty = () => {
     };
 
     try {
-      await axios.post("http://localhost:5000/properties", propertyData);
+      await axios.post("http://localhost:3000/properties", propertyData);
       Swal.fire({
         icon: "success",
         title: "Property Added!",
@@ -44,7 +44,7 @@ const AddProperty = () => {
         showConfirmButton: false,
       });
       setFormData({
-        propertyName: "",
+        name: "",
         description: "",
         category: "Rent",
         price: "",
@@ -65,12 +65,12 @@ const AddProperty = () => {
 
   return (
     <div className="container mx-auto p-6 max-w-lg">
-      <h2 className="text-2xl font-semibold mb-4 text-center">Add New Property</h2>
-      <form onSubmit={handleSubmit} className="space-y-4 bg-white shadow-md p-6 rounded-lg">
+      <h2 className="text-2xl font-bold mb-4 text-center">Add New Property</h2>
+      <form onSubmit={handleSubmit} className="space-y-4 shadow-md p-6 rounded-lg">
         
         <input
           type="text"
-          name="propertyName"
+          name="name"
           placeholder="Property Name"
           value={formData.name}
           onChange={handleChange}
@@ -134,7 +134,7 @@ const AddProperty = () => {
           name="userEmail"
           value={formData.userEmail}
           readOnly
-          className="w-full border rounded p-2 bg-gray-100"
+          className="w-full border rounded p-2 "
         />
 
         <input
@@ -142,12 +142,12 @@ const AddProperty = () => {
           name="userName"
           value={formData.userName}
           readOnly
-          className="w-full border rounded p-2 bg-gray-100"
+          className="w-full border rounded p-2"
         />
 
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded"
+          className="w-full bg-blue-600 hover:bg-blue-700  py-2 rounded"
         >
           Add Property
         </button>
