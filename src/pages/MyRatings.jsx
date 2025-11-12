@@ -10,17 +10,17 @@ const MyRatings = () => {
   useEffect(() => {
     const fetchMyRatings = async () => {
       try {
-      
+
         const res = await axios.get(
-          `http://localhost:3000/reviews?userEmail=${user?.email}`
+          `https://home-nest-server-sigma.vercel.app/reviews?userEmail=${user?.email}`
         );
         const userRatings = res.data;
 
-   
+
         const ratingsWithProperty = await Promise.all(
           userRatings.map(async (rating) => {
             const propRes = await axios.get(
-              `http://localhost:3000/properties/${rating.propertyId}`
+              `https://home-nest-server-sigma.vercel.app/properties/${rating.propertyId}`
             );
             return { ...rating, property: propRes.data };
           })
@@ -59,7 +59,7 @@ const MyRatings = () => {
             key={rating._id}
             className="border rounded-lg shadow-sm p-4 bg-white"
           >
-           
+
             <img
               src={rating.property.image}
               alt={rating.property.name}
@@ -70,7 +70,7 @@ const MyRatings = () => {
             </h3>
             <p className="text-gray-600">{rating.property.category}</p>
 
-         
+
             <p className="text-yellow-500 font-semibold mt-2">
               {rating.rating}⭐
             </p>

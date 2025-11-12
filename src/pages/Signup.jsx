@@ -37,6 +37,7 @@ const Signup = () => {
 
     try {
       await signup(email, password, name, photoURL);
+      console.log(signup);
       toast.success("Account created successfully 🎉");
       navigate("/");
     } catch (err) {

@@ -35,7 +35,7 @@ const AddProperty = () => {
     };
 
     try {
-      await axios.post("http://localhost:3000/properties", propertyData);
+      await axios.post("https://home-nest-server-sigma.vercel.app/properties", propertyData);
       Swal.fire({
         icon: "success",
         title: "Property Added!",
@@ -67,7 +67,7 @@ const AddProperty = () => {
     <div className="container mx-auto p-6 max-w-lg">
       <h2 className="text-2xl font-bold mb-4 text-center">Add New Property</h2>
       <form onSubmit={handleSubmit} className="space-y-4 shadow-md p-6 rounded-lg">
-        
+
         <input
           type="text"
           name="name"

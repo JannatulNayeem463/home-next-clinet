@@ -19,12 +19,12 @@ const DetailsPropertie = () => {
     const fetchProperty = async () => {
       try {
         // Get property details
-        const res = await axios.get(`http://localhost:3000/properties/${id}`);
+        const res = await axios.get(`https://home-nest-server-sigma.vercel.app/properties/${id}`);
         setProperty(res.data);
 
         // Get reviews
         const reviewsRes = await axios.get(
-          `http://localhost:3000/reviews?propertyId=${id}`
+          `https://home-nest-server-sigma.vercel.app/reviews?propertyId=${id}`
         );
         setReviews(reviewsRes.data);
       } catch (error) {
@@ -36,7 +36,7 @@ const DetailsPropertie = () => {
     fetchProperty();
   }, [id]);
 
- 
+
   const handleSubmitReview = async (e) => {
     e.preventDefault();
     if (rating === 0 || review.trim() === "") {
@@ -54,8 +54,8 @@ const DetailsPropertie = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:3000/reviews", newReview);
-      
+      const res = await axios.post("https://home-nest-server-sigma.vercel.app/reviews", newReview);
+
       setReviews([newReview, ...reviews]);
       setRating(0);
       setReview("");
@@ -84,7 +84,7 @@ const DetailsPropertie = () => {
           className="w-full h-96 object-cover rounded-lg"
         />
 
-        
+
         <div>
           <h2 className="text-3xl font-bold mb-2">{property.name}</h2>
           <p className="text-gray-600 mb-2">{property.category}</p>

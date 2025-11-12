@@ -10,11 +10,11 @@ const MyProperties = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  
+
   useEffect(() => {
     const fetchMyProperties = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/properties");
+        const res = await axios.get("https://home-nest-server-sigma.vercel.app/properties");
         const userProps = res.data.filter(
           (item) => item.userEmail === user?.email
         );
@@ -31,7 +31,7 @@ const MyProperties = () => {
     }
   }, [user]);
 
-  
+
   const handleDelete = async (id) => {
     const confirm = await Swal.fire({
       title: "Are you sure?",
@@ -45,10 +45,10 @@ const MyProperties = () => {
 
     if (confirm.isConfirmed) {
       try {
-        const res = await axios.delete(`http://localhost:3000/properties/${id}`);
+        const res = await axios.delete(`https://home-nest-server-sigma.vercel.app/properties/${id}`);
 
         if (res.data.deletedCount > 0) {
-         
+
           setProperties((prev) => prev.filter((p) => p._id !== id));
 
           Swal.fire({

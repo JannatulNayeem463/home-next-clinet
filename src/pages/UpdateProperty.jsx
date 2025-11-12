@@ -25,7 +25,7 @@ const UpdateProperty = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/properties/${id}`);
+        const res = await axios.get(`https://home-nest-server-sigma.vercel.app/properties/${id}`);
         setProperty(res.data);
         setFormData({
           propertyName: res.data.propertyName || "",
@@ -58,7 +58,7 @@ const UpdateProperty = () => {
         userName: user.name,
         userEmail: user.email,
       };
-      await axios.patch(`http://localhost:3000/properties/${id}`, updatedData);
+      await axios.patch(`https://home-nest-server-sigma.vercel.app/properties/${id}`, updatedData);
       Swal.fire("Success!", "Property updated successfully.", "success");
       navigate(`/details/${id}`);
     } catch (error) {
@@ -150,7 +150,7 @@ const UpdateProperty = () => {
           />
         </div>
 
-       
+
         <div className="mb-4">
           <label className="block text-gray-700 mb-1">User Name</label>
           <input

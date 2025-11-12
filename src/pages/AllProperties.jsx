@@ -17,7 +17,7 @@ const AllProperties = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `http://localhost:3000/properties?search=${search}&sort=${sortField}&order=${sortOrder}`
+          `https://home-nest-server-sigma.vercel.app/properties?search=${search}&sort=${sortField}&order=${sortOrder}`
         );
         setProperties(res.data);
       } catch (error) {
@@ -35,12 +35,12 @@ const AllProperties = () => {
 
   return (
     <div className="container mx-auto px-6 py-8">
-     
+
       <h2 className="text-3xl font-bold text-center mb-6">
         All Properties
       </h2>
 
-    
+
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <input
           type="text"
@@ -70,7 +70,7 @@ const AllProperties = () => {
         </select>
       </div>
 
-   
+
       {properties.length === 0 ? (
         <p className="text-center text-gray-500">No properties found.</p>
       ) : (
@@ -80,14 +80,14 @@ const AllProperties = () => {
               key={property._id}
               className="border rounded-lg shadow-sm bg-white hover:shadow-md transition-shadow"
             >
-             
+
               <img
                 src={property.image}
                 alt={property.name}
                 className="w-full h-48 object-cover rounded-t"
               />
 
-              
+
               <div className="p-4">
                 <h3 className="text-lg font-bold mb-1 text-gray-800">
                   {property.name}
@@ -96,7 +96,7 @@ const AllProperties = () => {
                 <p className="text-blue-600 font-semibold mb-2">${property.price}</p>
                 <p className="text-sm text-gray-600 mb-2">{property.location}</p>
 
-                
+
                 <p className="text-xs text-gray-400 mb-3">
                   Posted by:{" "}
                   <span className="font-medium text-gray-700">
@@ -104,12 +104,12 @@ const AllProperties = () => {
                   </span>
                 </p>
 
-              
+
                 <button
                   onClick={() => navigate(`/details/${property._id}`)}
                   className="bg-blue-500 hover:bg-blue-600 text-white w-full py-2 rounded text-sm"
                 >
-                   View Details
+                  View Details
                 </button>
               </div>
             </div>

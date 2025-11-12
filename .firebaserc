@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "home-next-auth",
+    "production": "homenest-1ace2"
+  },
+  "targets": {},
+  "etags": {}
+}

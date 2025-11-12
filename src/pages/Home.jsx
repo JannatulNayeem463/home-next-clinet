@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import "../App.css"; 
+import "../App.css";
 import { AuthContext } from "../context/AuthContext";
 
 const Home = () => {
@@ -14,15 +14,15 @@ const Home = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
- 
+
   useEffect(() => {
     axios
-      .get("http://localhost:3000/properties/limit")
+      .get("https://home-nest-server-sigma.vercel.app/properties/limit")
       .then((res) => setFeatured(res.data))
       .catch((err) => console.error(err));
   }, []);
 
-  
+
   const handleViewDetails = (id) => {
     if (!user) {
       navigate("/login");
